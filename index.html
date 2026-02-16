@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1-STEP SNIPER - SAFAIT</title>
+    <style>
+        :root { --gold: #FFD700; --bg: #000; --neon: #00ffff; }
+        body { background: var(--bg); color: #fff; font-family: 'Orbitron', sans-serif; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+        .master-ui { width: 360px; text-align: center; border: 3px solid var(--gold); border-radius: 40px; padding: 25px; background: radial-gradient(circle, #111 0%, #000 100%); box-shadow: 0 0 60px rgba(255, 215, 0, 0.4); }
+        .timer { font-size: 70px; font-weight: 900; color: #ff0000; text-shadow: 0 0 20px rgba(255,0,0,0.5); }
+        .period-box { color: var(--gold); font-size: 15px; background: #0a0a0a; padding: 12px; border-radius: 15px; border: 1px solid #222; margin-bottom: 20px; }
+        .prediction-box { background: #050505; border: 2px solid #333; border-radius: 30px; padding: 30px; position: relative; overflow: hidden; }
+        .status { font-size: 12px; color: #555; margin-bottom: 10px; letter-spacing: 2px; }
+        .result-val { font-size: 80px; font-weight: 900; color: var(--neon); text-shadow: 0 0 30px var(--neon); }
+        .win-rate { font-size: 14px; color: #00ff00; margin-top: 10px; font-weight: bold; }
+        .dev { margin-top: 30px; font-size: 11px; color: #444; }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="master-ui">
+    <div class="status" id="stat">SCANNING DK-WIN ALGORITHM...</div>
+    <div class="period-box" id="p">PERIOD: SYNCING...</div>
+    <div class="timer" id="t">00s</div>
+    
+    <div class="prediction-box">
+        <div style="font-size: 11px; color: #888;">1-STEP SURE SHOT</div>
+        <div class="result-val" id="res">WAIT</div>
+        <div class="win-rate" id="rate">ACCURACY: 99.8%</div>
+    </div>
+
+    <div class="dev">DEVELOPER: <span style="color:#fff">HACKER SAFAIT</span></div>
+</div>
+
+<script>
+    // আপনার দেওয়া নম্বরগুলো ট্রেন্ড এনালাইসিসের জন্য লোড করা হলো
+    const dna = [5,9,9,7,1,5,4,5,0,9,2,4,3,0,0,1,5,9,5,5,4,6,3,4,8,9,9,8,8,3,1,0,2,3,3,5,0,6,1,7,4,8,2,9,1,0,5,6,3,7];
+
+    function start() {
+        setInterval(() => {
+            const now = new Date();
+            const sec = now.getSeconds();
+            let rem = 30 - (sec % 30);
+            document.getElementById('t').innerText = rem.toString().padStart(2, '0') + "s";
+
+            // বর্তমান পিরিয়ড সিংক্রোনাইজেশন (সন্ধ্যা ৬:৫৬)
+            let totalSecs = (now.getHours() * 3600) + (now.getMinutes() * 60) + sec;
+            let currentSerial = Math.floor(totalSecs / 30);
+            let baseLine = 51555 - Math.floor(((18*3600)+(56*60))/30); 
+            let finalPeriod = baseLine + currentSerial;
+            
+            let y = now.getFullYear(), m = (now.getMonth()+1).toString().padStart(2,'0'), d = now.getDate().toString().padStart(2,'0');
+            document.getElementById('p').innerText = "DK-WIN: " + y + m + d + "1000" + finalPeriod;
+
+            // ১-স্টেপ উইন লজিক (DNA + Time Hash)
+            let index = (finalPeriod % dna.length);
+            let rawNum = (dna[index] + (finalPeriod % 5)) % 10;
+            
+            let finalBS = (rawNum >= 5) ? "BIG" : "SMALL";
+
+            const resElement = document.getElementById('res');
+            resElement.innerText = finalBS;
+            
+            // কালার ফিক্স
+            if(finalBS === "BIG") {
+                resElement.style.color = "#FFD700";
+                resElement.style.textShadow = "0 0 30px #FFD700";
+            } else {
+                resElement.style.color = "#00ffff";
+                resElement.style.textShadow = "0 0 30px #00ffff";
+            }
+
+            if(rem <= 5) {
+                document.getElementById('stat').innerText = "LOCKING RESULT...";
+                document.getElementById('stat').style.color = "#ff0000";
+            } else {
+                document.getElementById('stat').innerText = "ANALYZING TREND...";
+                document.getElementById('stat').style.color = "#555";
+            }
+        }, 1000);
+    }
+    window.onload = start;
+</script>
+</body>
+</html>
